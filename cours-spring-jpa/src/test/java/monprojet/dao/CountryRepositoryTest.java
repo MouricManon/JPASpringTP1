@@ -4,8 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import lombok.extern.log4j.Log4j2;
+
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.*;
 
 import monprojet.entity.*;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -47,6 +50,17 @@ public class CountryRepositoryTest {
         Integer pop = 27;
         Integer nombre = countryDAO.pop(3);
         assertEquals(pop, nombre, "On doit trouver 27" );
+    }
+
+    @Test
+    void onSaituneListeDesPays(){
+        log.info("On regarde la liste des pays");
+        HashMap<String, Integer> liste = new HashMap<>();
+        liste.put("France",12);
+        liste.put("United Kingdom",18);
+        liste.put("United States of America",27);
+        Map<String, Integer> map = countryDAO.listePopPays();
+        assertEquals(liste, map,"Les deux maps ne correspondent pas");
     }
 
 }
